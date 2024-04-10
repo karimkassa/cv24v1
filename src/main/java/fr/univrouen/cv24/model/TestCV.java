@@ -2,6 +2,11 @@ package fr.univrouen.cv24.model;
 
 import java.io.Serializable;
 
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -10,10 +15,13 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "TestCV")
 @XmlAccessorType(XmlAccessType.NONE)
+@Entity
 public class TestCV implements Serializable {
 	private static final long serialVersionUID = 2024L;
 	private static int compteur = 1;
 	@XmlAttribute
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@XmlElement
 	private String nom;
