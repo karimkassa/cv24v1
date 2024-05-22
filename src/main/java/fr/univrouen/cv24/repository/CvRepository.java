@@ -1,7 +1,7 @@
 package fr.univrouen.cv24.repository;
 
-import fr.univrouen.cv24.model.TestCV;
+import fr.univrouen.cv24.model.Cv24;
 import org.springframework.data.repository.CrudRepository;
 
-public interface CvRepository extends CrudRepository<TestCV, Integer> {
+public interface CvRepository extends CrudRepository<Cv24, Long> {
 }
