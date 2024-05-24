@@ -3,6 +3,7 @@ package fr.univrouen.cv24.service;
 import fr.univrouen.cv24.model.*;
 import fr.univrouen.cv24.repository.*;
 
+import fr.univrouen.cv24.util.CVMinimalListMapper;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,5 +57,43 @@ public class Cv24Service {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public List<CVMinimal> getAllCvMinimal() {
+        List<Cv24> cv24List = getAllCv24();
+        List<CVMinimal> cvMinimalList = new ArrayList<>();
+
+        for (Cv24 cv24 : cv24List) {
+            CVMinimal cvMinimal = new CVMinimal(cv24);
+            cvMinimalList.add(cvMinimal);
+        }
+
+        return cvMinimalList;
+    }
+
+
+    public String getXMLData() {
+        List<Cv24> cv24List = getAllCv24();
+        if (cv24List.isEmpty()) {
+            return ""; // Or handle empty case appropriately
+        } else {
+            try {
+                List<CVMinimal> cvMinimalList = convertToCVMinimalList(cv24List);
+
+                // Marshalling des CVMinimal en XML
+                CVMinimalListMapper cvMinimalListMapper = new CVMinimalListMapper(cvMinimalList);
+                JAXBContext jaxbContext = JAXBContext.newInstance(CVMinimalListMapper.class);
+                StringWriter writer = new StringWriter();
+                jaxbContext.createMarshaller().marshal(cvMinimalListMapper, writer);
+                return writer.toString();
+            } catch (JAXBException e) {
+                e.printStackTrace();
+                return "";
+            }
+        }
+    }
+
+    private List<CVMinimal> convertToCVMinimalList(List<Cv24> cv24List) {
+        return cv24List.stream().map(CVMinimal::new).toList();
     }
 }

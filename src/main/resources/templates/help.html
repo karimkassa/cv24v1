@@ -1,0 +1,69 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>CV24 V1 HELP</title>
+    <link href="/resources/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="intro">
+    <h1>Help Service CV24</h1>
+    <p>Documentation API CV24 V1</p>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th scope="col">URL</th>
+        <th scope="col">Méthode HTTP</th>
+        <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <td colspan="3" style="text-align: center;"> XML Projet- 2023/2024</td>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr>
+        <th scope="row">/</th>
+        <td>GET</td>
+        <td>Accueil avec un message identifiant le projet</td>
+    </tr>
+    <tr>
+        <th scope="row">/help</th>
+        <td>GET</td>
+        <td>Documentaion Service API Rest CV24 V1</td>
+    </tr>
+    <tr>
+        <th scope="row">/cv24/resume/xml</th>
+        <td>GET</td>
+        <td>CV stockés au format XML</td>
+    </tr>
+    <tr>
+        <th scope="row">/cv24/resume</th>
+        <td>GET</td>
+        <td>Cv stockés au format HTML</td>
+    </tr>
+    <tr>
+        <th scope="row">/cv24/xml?id={id}</th>
+        <td>GET</td>
+        <td>Cv à l'id en XML</td>
+    </tr>
+    <tr>
+        <th scope="row">/cv24/html?id={id}</th>
+        <td>GET</td>
+        <td>Cv à l'id en HTML</td>
+    </tr>
+    <tr>
+        <th scope="row">/cv24/insert</th>
+        <td>POST</td>
+        <td>Inserer un nouveau CV à la base</td>
+    </tr>
+    <tr>
+        <th scope="row">/cv24/delete</th>
+        <td>DELETE</td>
+        <td>Suprimer un CV avec l'id</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

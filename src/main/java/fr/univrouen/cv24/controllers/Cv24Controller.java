@@ -1,7 +1,9 @@
 package fr.univrouen.cv24.controllers;
 
+import fr.univrouen.cv24.model.CVMinimal;
 import fr.univrouen.cv24.model.Cv24;
 import fr.univrouen.cv24.service.Cv24Service;
+import fr.univrouen.cv24.util.CVMinimalListMapper;
 import fr.univrouen.cv24.util.CVNotValidException;
 import fr.univrouen.cv24.util.Cv24ListMapper;
 import fr.univrouen.cv24.util.Validator;
@@ -15,19 +17,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cv")
+@RequestMapping("/cv24")
 public class Cv24Controller {
 
     private static final Logger log = LoggerFactory.getLogger(Cv24Controller.class);
@@ -50,7 +55,7 @@ public class Cv24Controller {
             Cv24 cv24 = (Cv24) unmarshaller.unmarshal(reader);
 
             Cv24 savedCv24 = cv24Service.saveCv24(cv24);
-            return ResponseEntity.ok("Inserted CV with ID: " +  savedCv24.getId());
+            return ResponseEntity.ok("Inserted CV with ID: " + savedCv24.getId());
         } catch (JAXBException e) {
             log.error("JAXBException during unmarshalling: ", e);
             return ResponseEntity.badRequest().build();
@@ -59,6 +64,7 @@ public class Cv24Controller {
             return ResponseEntity.status(500).build();
         }
     }
+
     @GetMapping(path = "/xml", produces = "application/xml")
     public ResponseEntity<String> getCv24ById(@RequestParam Long id) {
         Optional<Cv24> optionalCv24 = cv24Service.getCv24ById(id);
@@ -76,13 +82,13 @@ public class Cv24Controller {
         }
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping(value = "/delete")
     public ResponseEntity<String> deleteCv24(@RequestParam Long id) {
         if (cv24Service.getCv24ById(id).isPresent()) {
             cv24Service.deleteCv24(id);
             return ResponseEntity.ok("The resume with id " + id + "Is deleted");
-        }
-        else return ResponseEntity.badRequest().body("Error : The resume you requested does not exist with id : " + id);
+        } else
+            return ResponseEntity.badRequest().body("Error : The resume you requested does not exist with id : " + id);
     }
 
     @GetMapping(produces = "application/xml")
@@ -97,6 +103,26 @@ public class Cv24Controller {
                 JAXBContext jaxbContext = JAXBContext.newInstance(Cv24ListMapper.class);
                 StringWriter writer = new StringWriter();
                 jaxbContext.createMarshaller().marshal(cv24ListMapper, writer);
+                return ResponseEntity.ok(writer.toString());
+            } catch (JAXBException e) {
+                return ResponseEntity.internalServerError().build();
+            }
+        }
+    }
+
+
+    @GetMapping(value = "/resume/xml", produces = "application/xml")
+    public ResponseEntity<String> getAllCvMinimal() {
+        List<CVMinimal> cvMinimalList = cv24Service.getAllCvMinimal();
+        if (cvMinimalList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            try {
+                // Marshal CVMinimalList to XML
+                CVMinimalListMapper cvMinimalListMapper = new CVMinimalListMapper(cvMinimalList);
+                JAXBContext jaxbContext = JAXBContext.newInstance(CVMinimalListMapper.class);
+                StringWriter writer = new StringWriter();
+                jaxbContext.createMarshaller().marshal(cvMinimalListMapper, writer);
                 return ResponseEntity.ok(writer.toString());
             } catch (JAXBException e) {
                 return ResponseEntity.internalServerError().build();
@@ -125,4 +151,25 @@ public class Cv24Controller {
     }
 
 
+    @GetMapping(value = "/resume", produces = "text/html")
+    public ResponseEntity<String> getResume() {
+        try {
+            String xmlData = cv24Service.getXMLData();
+
+            ClassPathResource xsltResource = new ClassPathResource("cv24minimal.xslt");
+            StreamSource xsltStream = new StreamSource(xsltResource.getInputStream());
+
+            // Perform XSLT transformation
+            TransformerFactory factory = TransformerFactory.newInstance();
+            Transformer transformer = factory.newTransformer(xsltStream);
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(xmlData.getBytes());
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            transformer.transform(new StreamSource(inputStream), new StreamResult(outputStream));
+
+            return ResponseEntity.ok(outputStream.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error occurred during XSLT transformation");
+        }
+    }
 }

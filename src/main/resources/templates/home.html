@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Service REST CV24</title>
+</head>
+<body>
+<h1 th:text="${projectName}"></h1>
+<p>Version: <span th:text="${version}"></span></p>
+<h2>Team Members</h2>
+<ul>
+    <li th:each="member : ${teamMembers}" th:text="${member}"></li>
+</ul>
+<img src="/images/logo.png" alt="Université de Rouen">
+</body>
+</html>

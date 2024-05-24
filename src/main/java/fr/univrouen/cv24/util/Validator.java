@@ -1,6 +1,6 @@
 package fr.univrouen.cv24.util;
 
-import fr.univrouen.cv24.controllers.PostController;
+import fr.univrouen.cv24.controllers.Cv24Controller;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -23,7 +23,7 @@ public class Validator {
         try {
         	
         	SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = factory.newSchema(PostController.class.getResource("/cv24.tp1.xsd"));
+            Schema schema = factory.newSchema(Cv24Controller.class.getResource("/cv24.tp1.xsd"));
             javax.xml.validation.Validator validator = schema.newValidator();
             validator.validate(new StreamSource(new StringReader(cv24)));
         

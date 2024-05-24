@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des CV - Service REST CV24</title>
+</head>
+<body>
+<h1>Liste des CV</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Identité</th>
+        <th>Objectif</th>
+        <th>Diplôme</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cv : ${cvList}">
+        <td th:text="${cv.id}"></td>
+        <td th:text="${cv.identity}"></td>
+        <td th:text="${cv.objective}"></td>
+        <td th:text="${cv.highestDegree}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

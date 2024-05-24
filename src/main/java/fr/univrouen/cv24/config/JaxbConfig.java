@@ -48,13 +48,13 @@ public class JaxbConfig {
         return unmarshaller;
     }
 
-    @Bean
-    public ViewResolver xsltViewResolver() {
-        XsltViewResolver resolver = new XsltViewResolver();
-        resolver.setOrder(1);
-        resolver.setSourceKey("xmlData");
-        resolver.setViewClass(XsltView.class);
-        resolver.setSuffix(".xslt");
-        return resolver;
-    }
+//    @Bean
+//    public ViewResolver xsltViewResolver() {
+//        XsltViewResolver resolver = new XsltViewResolver();
+//        resolver.setOrder(1);
+//        resolver.setSourceKey("xmlData");
+//        resolver.setViewClass(XsltView.class);
+//        resolver.setSuffix(".xslt");
+//        return resolver;
+//    }
 }
