@@ -30,28 +30,14 @@ import jakarta.xml.bind.annotation.*;
 @XmlType(name = "contratType")
 @XmlEnum
 public enum ContratType {
-
-    @XmlEnumValue("stage")
-    STAGE("stage"),
-    @XmlEnumValue("emploi")
-    EMPLOI("emploi");
-    private final String value;
-
-    ContratType(String v) {
-        value = v;
-    }
+    stage,
+    emploi;
 
     public String value() {
-        return value;
+        return name();
     }
 
     public static ContratType fromValue(String v) {
-        for (ContratType c: ContratType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+        return valueOf(v);
     }
-
 }

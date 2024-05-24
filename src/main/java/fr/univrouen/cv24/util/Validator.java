@@ -1,6 +1,7 @@
 package fr.univrouen.cv24.util;
 
 import fr.univrouen.cv24.controllers.PostController;
+import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -15,9 +16,10 @@ import java.io.StringReader;
  * @author Yeser GOUMIDI
  */
 
+@Service
 public class Validator {
 
-    public boolean validate(String cv24) throws CVNotValidException {
+    public static boolean validate(String cv24) throws CVNotValidException {
         try {
         	
         	SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

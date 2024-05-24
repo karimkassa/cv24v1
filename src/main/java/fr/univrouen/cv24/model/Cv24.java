@@ -35,46 +35,34 @@ import java.io.Serializable;
  * &lt;/complexType&gt;
  * </pre>
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {
-        "id",
-        "identite",
-        "objectif",
-        "prof",
-        "competences",
-        "divers"
-})
-@XmlRootElement(name = "cv24")
+
 @Entity
 @Table(name = "cv24")
-public class Cv24 implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "cv24")
+public class Cv24 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne(cascade = CascadeType.ALL)
     @XmlElement(required = true)
-    @OneToOne(cascade = CascadeType.ALL)
-    private IdentiteType identite;
+    private Identite identite;
 
+    @OneToOne(cascade = CascadeType.ALL)
     @XmlElement(required = true)
-    @OneToOne(cascade = CascadeType.ALL)
-    private ObjectifType objectif;
+    private Objectif objectif;
 
-    @XmlElement(required = false)
     @OneToOne(cascade = CascadeType.ALL)
-    private ProfType prof;
+    private Prof prof;
 
+    @OneToOne(cascade = CascadeType.ALL)
     @XmlElement(required = true)
-    @OneToOne(cascade = CascadeType.ALL)
-    private CompetencesType competences;
+    private Competences competences;
 
-    @XmlElement(required = false)
     @OneToOne(cascade = CascadeType.ALL)
-    private DiversType divers;
+    private Divers divers;
 
     public Long getId() {
         return id;
@@ -84,104 +72,43 @@ public class Cv24 implements Serializable {
         this.id = id;
     }
 
-    /**
-     * Obtient la valeur de la propriété identite.
-     *
-     * @return possible object is
-     * {@link IdentiteType }
-     */
-    public IdentiteType getIdentite() {
+    public Identite getIdentite() {
         return identite;
     }
 
-    /**
-     * Définit la valeur de la propriété identite.
-     *
-     * @param value allowed object is
-     *              {@link IdentiteType }
-     */
-    public void setIdentite(IdentiteType value) {
-        this.identite = value;
+    public void setIdentite(Identite identite) {
+        this.identite = identite;
     }
 
-    /**
-     * Obtient la valeur de la propriété objectif.
-     *
-     * @return possible object is
-     * {@link ObjectifType }
-     */
-    public ObjectifType getObjectif() {
+    public Objectif getObjectif() {
         return objectif;
     }
 
-    /**
-     * Définit la valeur de la propriété objectif.
-     *
-     * @param value allowed object is
-     *              {@link ObjectifType }
-     */
-    public void setObjectif(ObjectifType value) {
-        this.objectif = value;
+    public void setObjectif(Objectif objectif) {
+        this.objectif = objectif;
     }
 
-    /**
-     * Obtient la valeur de la propriété prof.
-     *
-     * @return possible object is
-     * {@link ProfType }
-     */
-    public ProfType getProf() {
+    public Prof getProf() {
         return prof;
     }
 
-    /**
-     * Définit la valeur de la propriété prof.
-     *
-     * @param value allowed object is
-     *              {@link ProfType }
-     */
-    public void setProf(ProfType value) {
-        this.prof = value;
+    public void setProf(Prof prof) {
+        this.prof = prof;
     }
 
-    /**
-     * Obtient la valeur de la propriété competences.
-     *
-     * @return possible object is
-     * {@link CompetencesType }
-     */
-    public CompetencesType getCompetences() {
+    public Competences getCompetences() {
         return competences;
     }
 
-    /**
-     * Définit la valeur de la propriété competences.
-     *
-     * @param value allowed object is
-     *              {@link CompetencesType }
-     */
-    public void setCompetences(CompetencesType value) {
-        this.competences = value;
+    public void setCompetences(Competences competences) {
+        this.competences = competences;
     }
 
-    /**
-     * Obtient la valeur de la propriété divers.
-     *
-     * @return possible object is
-     * {@link DiversType }
-     */
-    public DiversType getDivers() {
+    public Divers getDivers() {
         return divers;
     }
 
-    /**
-     * Définit la valeur de la propriété divers.
-     *
-     * @param value allowed object is
-     *              {@link DiversType }
-     */
-    public void setDivers(DiversType value) {
-        this.divers = value;
+    public void setDivers(Divers divers) {
+        this.divers = divers;
     }
-
 }

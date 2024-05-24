@@ -32,24 +32,20 @@ import java.io.Serializable;
  * &lt;/complexType&gt;
  * </pre>
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "objectifType", propOrder = {
-        "id",
-        "statut",
-        "contrat"
-})
 @Entity
-@Table(name = "objectifType")
-public class ObjectifType implements Serializable {
+@Table(name = "objectif")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Objectif {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @XmlElement(required = true)
     private String statut;
+
     @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
+    @Enumerated(EnumType.STRING)
     private ContratType contrat;
 
     public Long getId() {
@@ -60,44 +56,19 @@ public class ObjectifType implements Serializable {
         this.id = id;
     }
 
-    /**
-     * Obtient la valeur de la propriété statut.
-     *
-     * @return possible object is
-     * {@link String }
-     */
     public String getStatut() {
         return statut;
     }
 
-    /**
-     * Définit la valeur de la propriété statut.
-     *
-     * @param value allowed object is
-     *              {@link String }
-     */
-    public void setStatut(String value) {
-        this.statut = value;
+    public void setStatut(String statut) {
+        this.statut = statut;
     }
 
-    /**
-     * Obtient la valeur de la propriété contrat.
-     *
-     * @return possible object is
-     * {@link ContratType }
-     */
     public ContratType getContrat() {
         return contrat;
     }
 
-    /**
-     * Définit la valeur de la propriété contrat.
-     *
-     * @param value allowed object is
-     *              {@link ContratType }
-     */
-    public void setContrat(ContratType value) {
-        this.contrat = value;
+    public void setContrat(ContratType contrat) {
+        this.contrat = contrat;
     }
-
 }

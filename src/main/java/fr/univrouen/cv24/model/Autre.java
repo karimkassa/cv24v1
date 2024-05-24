@@ -9,10 +9,7 @@
 package fr.univrouen.cv24.model;
 
 import jakarta.persistence.*;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.*;
 
 import java.io.Serializable;
 
@@ -35,23 +32,19 @@ import java.io.Serializable;
  * &lt;/complexType&gt;
  * </pre>
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "autreType", propOrder = {
-        "id",
-        "titre",
-        "comment"
-})
 @Entity
-@Table(name = "autreType")
-public class AutreType implements Serializable {
+@Table(name = "autre")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Autre {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @XmlElement(required = true)
+    @XmlAttribute(required = true)
     private String titre;
-    @XmlElement(required = false)
+
+    @XmlAttribute
     private String comment;
 
     public Long getId() {
@@ -62,44 +55,19 @@ public class AutreType implements Serializable {
         this.id = id;
     }
 
-    /**
-     * Obtient la valeur de la propriété titre.
-     *
-     * @return possible object is
-     * {@link String }
-     */
     public String getTitre() {
         return titre;
     }
 
-    /**
-     * Définit la valeur de la propriété titre.
-     *
-     * @param value allowed object is
-     *              {@link String }
-     */
-    public void setTitre(String value) {
-        this.titre = value;
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
-    /**
-     * Obtient la valeur de la propriété comment.
-     *
-     * @return possible object is
-     * {@link String }
-     */
     public String getComment() {
         return comment;
     }
 
-    /**
-     * Définit la valeur de la propriété comment.
-     *
-     * @param value allowed object is
-     *              {@link String }
-     */
-    public void setComment(String value) {
-        this.comment = value;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
-
 }
