@@ -33,34 +33,17 @@ import jakarta.xml.bind.annotation.*;
 @XmlType(name = "genreType")
 @XmlEnum
 public enum GenreType {
-
-    @XmlEnumValue("M.")
-    M("M."),
-    @XmlEnumValue("Mme")
-    MME("Mme"),
-    @XmlEnumValue("Mr")
-    MR("Mr"),
-    @XmlEnumValue("Mrs")
-    MRS("Mrs"),
-    @XmlEnumValue("Miss")
-    MISS("Miss");
-    private final String value;
-
-    GenreType(String v) {
-        value = v;
-    }
+    M,
+    Mme,
+    Mr,
+    Mrs,
+    Miss;
 
     public String value() {
-        return value;
+        return name();
     }
 
     public static GenreType fromValue(String v) {
-        for (GenreType c: GenreType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+        return valueOf(v);
     }
-
 }

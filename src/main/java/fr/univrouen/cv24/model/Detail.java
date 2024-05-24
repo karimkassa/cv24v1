@@ -34,27 +34,20 @@ import java.time.LocalDate;
  * &lt;/complexType&gt;
  * </pre>
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "detailType", propOrder = {
-        "id",
-        "datedeb",
-        "datefin",
-        "titre"
-})
 @Entity
-@Table(name = "detailType")
-public class DetailType implements Serializable {
+@Table(name = "detail")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Detail {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @XmlElement(required = true)
-    @XmlSchemaType(name = "date")
-    private LocalDate datedeb;
+    private String datedeb;
 
-    @XmlSchemaType(name = "date")
-    private LocalDate datefin;
+    @XmlElement
+    private String datefin;
 
     @XmlElement(required = true)
     private String titre;
@@ -67,64 +60,27 @@ public class DetailType implements Serializable {
         this.id = id;
     }
 
-    /**
-     * Obtient la valeur de la propriété datedeb.
-     *
-     * @return possible object is
-     * {@link LocalDate }
-     */
-    public LocalDate getDatedeb() {
+    public String getDatedeb() {
         return datedeb;
     }
 
-    /**
-     * Définit la valeur de la propriété datedeb.
-     *
-     * @param value allowed object is
-     *              {@link LocalDate }
-     */
-    public void setDatedeb(LocalDate value) {
-        this.datedeb = value;
+    public void setDatedeb(String datedeb) {
+        this.datedeb = datedeb;
     }
 
-    /**
-     * Obtient la valeur de la propriété datefin.
-     *
-     * @return possible object is
-     * {@link LocalDate }
-     */
-    public LocalDate getDatefin() {
+    public String getDatefin() {
         return datefin;
     }
 
-    /**
-     * Définit la valeur de la propriété datefin.
-     *
-     * @param value allowed object is
-     *              {@link LocalDate }
-     */
-    public void setDatefin(LocalDate value) {
-        this.datefin = value;
+    public void setDatefin(String datefin) {
+        this.datefin = datefin;
     }
 
-    /**
-     * Obtient la valeur de la propriété titre.
-     *
-     * @return possible object is
-     * {@link String }
-     */
     public String getTitre() {
         return titre;
     }
 
-    /**
-     * Définit la valeur de la propriété titre.
-     *
-     * @param value allowed object is
-     *              {@link String }
-     */
-    public void setTitre(String value) {
-        this.titre = value;
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
-
 }

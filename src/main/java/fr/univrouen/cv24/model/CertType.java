@@ -30,7 +30,6 @@ import jakarta.xml.bind.annotation.*;
 @XmlType(name = "certType")
 @XmlEnum
 public enum CertType {
-
     MAT,
     CLES,
     TOEIC;
@@ -42,5 +41,4 @@ public enum CertType {
     public static CertType fromValue(String v) {
         return valueOf(v);
     }
-
 }

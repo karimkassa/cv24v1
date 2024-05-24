@@ -33,36 +33,18 @@ import jakarta.xml.bind.annotation.*;
 @XmlType(name = "niviType")
 @XmlEnum
 public enum NiviType {
-
-    @XmlEnumValue("A1")
-    A_1("A1"),
-    @XmlEnumValue("A2")
-    A_2("A2"),
-    @XmlEnumValue("B1")
-    B_1("B1"),
-    @XmlEnumValue("B2")
-    B_2("B2"),
-    @XmlEnumValue("C1")
-    C_1("C1"),
-    @XmlEnumValue("C2")
-    C_2("C2");
-    private final String value;
-
-    NiviType(String v) {
-        value = v;
-    }
+    A1,
+    A2,
+    B1,
+    B2,
+    C1,
+    C2;
 
     public String value() {
-        return value;
+        return name();
     }
 
     public static NiviType fromValue(String v) {
-        for (NiviType c: NiviType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
+        return valueOf(v);
     }
-
 }
